@@ -44,6 +44,7 @@ import floorFrag from "@/three/shaders/sketch/floorfrag.glsl";
 const Sketch3 = () => {
   const cargltf = useGLTF("/models/sm_car.gltf", false, true);
   const startRommgltf = useGLTF("/models/sm_startroom.raw.gltf", false, true);
+  // colorful beams
   const gltf = useGLTF("/models/sm_speedup.gltf", false, true);
   const aoMap = useTexture("/textures/t_car_body_AO.raw.jpg");
   const lightMap = useTexture("/textures/t_startroom_light.raw.jpg");
@@ -98,6 +99,7 @@ const Sketch3 = () => {
   const bloomRef = useRef<any>(null);
   const bodyColor = useGameStore((state) => state.bodyColor);
 
+  // animation for color of car body change
   useGSAP(
     () => {
       if (!modelRef.current.bodyMat) return;
@@ -119,6 +121,8 @@ const Sketch3 = () => {
     },
     { dependencies: [bodyColor] }
   );
+
+  // animation for scene switch
   useGSAP(
     () => {
       const baseParam = params.current;
@@ -330,7 +334,7 @@ const Sketch3 = () => {
       }),
     []
   );
-
+  // modify the material of the colorful beams
   useModifyCSM(gltf, mat);
 
   useLayoutEffect(() => {
